@@ -18,12 +18,23 @@ export class UserRepository extends Repository<User> {
       user.password = hash;
       await user.save();
     } catch (error) {
-      console.log(error.message);
       if (/duplicate/gim.test(error.message)) {
         throw new ConflictException('username already exist');
       } else {
         throw new InternalServerErrorException();
       }
+    }
+  }
+
+  async validateUserPassword(
+    authCredentialsDto: AuthCredentialsDto,
+  ): Promise<string> {
+    const { username, password } = authCredentialsDto;
+    const user = await this.findOne({ username });
+    if (user && (await user.validatePassword(password))) {
+      return user.username;
+    } else {
+      return null;
     }
   }
 }
