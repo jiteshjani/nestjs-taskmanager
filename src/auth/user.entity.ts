@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import * as argon2 from 'argon2';
 import { Task } from 'src/tasks/task.entity';
+import { Logger } from '@nestjs/common';
 
 @Entity()
 @Unique(['username'])
@@ -28,7 +29,8 @@ export class User extends BaseEntity {
     try {
       return await argon2.verify(this.password, password);
     } catch (error) {
-      console.log(error.message);
+      const logger = new Logger('argon2.verify');
+      logger.error(`Argon2 verification error: ${error.message}`, error.stack);
       return false;
     }
   }
