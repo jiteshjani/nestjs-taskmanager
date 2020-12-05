@@ -1,0 +1,18 @@
+{
+  "server": {
+    "port": 3000
+  },
+  "db": {
+    "type": "your_db_type",
+    "port": 3306,
+    "database": "your_db_name",
+    "host": "your_db_host",
+    "username": "db_user",
+    "password": "db_pass",
+    "synchronize": true
+  },
+  "jwt": {
+    "secret": "ChangeThisToSomethingRandom",
+    "expiresIn": 3600
+  }
+}
