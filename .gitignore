@@ -36,6 +36,3 @@ lerna-debug.log*
 # APP CONFIG
 config/*
 !config/default.json
-
-# REACT FRONTEND
-client/*
